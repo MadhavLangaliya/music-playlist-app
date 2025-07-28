@@ -10,6 +10,12 @@ exports.getPlaylists = async (req, res) => {
   }
 };
 
+exports.getPlaylistById = async (req, res) => {
+  const playlist = await Playlist.findById(req.params.id);
+  if (!playlist) return res.status(404).json({ message: "Not found" });
+  res.json(playlist);
+};
+
 // Create new playlist
 exports.createPlaylist = async (req, res) => {
   const { name, description } = req.body;

@@ -6,7 +6,8 @@ const {
   createPlaylist,
   updatePlaylist,
   deletePlaylist,
-  addSongToPlaylist
+  addSongToPlaylist,
+  getPlaylistById
 } = require('../controllers/playlistController');
 
 router.use(verifyToken); // Protect all routes
@@ -25,5 +26,6 @@ router.delete('/:id', deletePlaylist);
 
 router.post('/:playlistId/songs', addSongToPlaylist);
 
+router.get("/:id", getPlaylistById);
 
 module.exports = router;

@@ -7,11 +7,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Example routes — will be created later
+// ✅ Root route — visible at "/"
+app.get("/", (req, res) => {
+  res.send("🎧 Welcome to the Music Playlist API!");
+});
+
+// Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/playlists', require('./routes/playlistRoutes'));
 app.use('/api/spotify', require('./routes/spotifyRoutes'));
 
+// DB connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
