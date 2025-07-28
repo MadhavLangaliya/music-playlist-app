@@ -10,6 +10,7 @@ import {
   Modal,
   TextField
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 
 type Playlist = {
@@ -22,6 +23,7 @@ const DashboardPage = () => {
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", description: "" });
+  const navigate = useNavigate();
 
   const fetchPlaylists = async () => {
     try {
@@ -60,9 +62,12 @@ const DashboardPage = () => {
     <Box p={4}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
         <Typography variant="h4" fontWeight={600}>🎵 My Playlists</Typography>
-        <Button variant="contained" onClick={() => setOpen(true)}>
-          + New Playlist
-        </Button>
+        <Box display="flex" gap={2}>
+          <Button variant="outlined" onClick={() => navigate("/search")}>Search Songs</Button>
+          <Button variant="contained" onClick={() => setOpen(true)}>
+            + New Playlist
+          </Button>
+        </Box>
       </Box>
 
       <Grid container spacing={3}>
@@ -76,6 +81,9 @@ const DashboardPage = () => {
                 </Typography>
               </CardContent>
               <CardActions>
+                <Button size="small" onClick={() => navigate(`/playlist/${pl._id}`)}>
+                  View
+                </Button>
                 <Button size="small" color="error" onClick={() => handleDelete(pl._id)}>
                   Delete
                 </Button>
